@@ -1,0 +1,9 @@
+@import "tailwindcss" source(none);
+
+@source "./";
+
+@layer base {
+    html, body, #root {
+        @apply h-full;
+    }
+}
