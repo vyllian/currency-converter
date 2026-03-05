@@ -13,7 +13,7 @@ function buildUrl(baseUrl: string, params?: RequestParams): string {
     return urlObj.toString();
 }
 
-export async function handleRequest(baseUrl: string, params?: RequestParams, method: "GET" | "POST" | "PUT" | "DELETE" = "GET" ) {
+export async function handleRequest<T>(baseUrl: string, params?: RequestParams, method: "GET" | "POST" | "PUT" | "DELETE" = "GET" ): Promise<T> {
     const finalUrl = buildUrl(baseUrl, params);
 
     const response = await fetch(finalUrl, {method: method})
