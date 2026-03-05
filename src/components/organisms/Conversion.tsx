@@ -3,9 +3,10 @@ import CurrencySelect from "@/components/atoms/CurrencySelect.tsx";
 import {useAppDispatch, useAppSelector} from "@/core/redux/hooks.ts";
 import {useEffect} from "react";
 import {convertCurrency} from "@/core/utils/conversion.ts";
-import {setAmount, setBase, setResult, setTarget, swapCurrencies} from "@/core/redux/slice.ts";
+import {setAmount, setBase, setResult, setTarget, swapCurrencies, addHistory} from "@/core/redux/slice.ts";
 import {IoSwapVertical} from "react-icons/io5";
 import {loadCurrencies, loadRates} from "@/core/redux/thunk.ts";
+import {useDebounce} from "@/core/hooks/useDebounce.ts";
 
 function Conversion() {
     const dispatch = useAppDispatch();
@@ -14,18 +15,29 @@ function Conversion() {
         result,
         base,
         target,
-        rates,
+        rates
     } = useAppSelector(state => state.currency)
+
+    const debouncedAmount = useDebounce(amount);
 
     useEffect(() => {
         const converted = convertCurrency(
-            amount,
+            debouncedAmount,
             base,
             target,
             rates
         )
-        dispatch(setResult(converted))
-    }, [amount, base, target, rates, dispatch])
+        dispatch(setResult(converted));
+
+        if (!rates[target]) return;
+        dispatch(addHistory({
+            base,
+            target,
+            amount: debouncedAmount,
+            result: converted,
+            date: new Date().toISOString(),
+        }))
+    }, [debouncedAmount, base, target, rates, dispatch])
 
     useEffect(() => {
         dispatch(loadCurrencies())
