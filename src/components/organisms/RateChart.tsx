@@ -47,7 +47,7 @@ function RateChart() {
                 ]}
             />
             <Tooltip/>
-            <Line type="monotone" dataKey="rate" stroke="black" animationDuration={1000}/>
+            <Line type="monotone" dataKey="rate" stroke="oklch(37.8% 0.077 168.94)" animationDuration={1000}/>
         </LineChart>
     )
 }
