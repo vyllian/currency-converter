@@ -17,3 +17,9 @@ export type CurrencyChanges = {
         [date: string]: CurrencyMap;
     }
 }
+
+export type CurrencyCache = {
+    base: CurrencyCode,
+    rates: CurrencyMap,
+    lastUpdated: number,
+}

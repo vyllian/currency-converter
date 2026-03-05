@@ -1,7 +1,6 @@
 import type {CurrencyChanges, CurrencyCode, CurrencyMap} from "@/core/type/currency.ts";
 
-export interface ConversionHistory {
-    id: string;
+export type ConversionHistory = {
     base: CurrencyCode;
     target: CurrencyCode;
     amount: number;
@@ -9,7 +8,7 @@ export interface ConversionHistory {
     date: string;
 }
 
-export interface CurrencyState {
+export type CurrencyState = {
     base: CurrencyCode;
     target: CurrencyCode;
     amount: number;
@@ -24,4 +23,5 @@ export interface CurrencyState {
     loading: boolean;
     error: string | null;
     lastUpdated: number | null;
+    offline: boolean;
 }
