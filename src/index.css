@@ -7,3 +7,9 @@
         @apply h-full;
     }
 }
+
+@layer components {
+    .section {
+        @apply w-full h-full rounded-3xl bg-white flex flex-col justify-evenly items-center;
+    }
+}
